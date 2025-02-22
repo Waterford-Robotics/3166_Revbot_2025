@@ -70,14 +70,13 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
 
     new JoystickButton(m_driverController, 4)
         .whileTrue(new RunCommand(
             () -> m_troughSubsystem.spinCommand(),
+            m_troughSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_troughSubsystem.stop(),
             m_troughSubsystem));
   }
 
