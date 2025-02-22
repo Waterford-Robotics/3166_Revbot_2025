@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.TroughSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,6 +37,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final TroughSubsystem m_troughSubsystem = new TroughSubsystem();
+  private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -70,15 +72,58 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    new JoystickButton(m_driverController, 4)
+//trough
+    new JoystickButton(m_driverController, 6)
         .whileTrue(new RunCommand(
-            () -> m_troughSubsystem.spinCommand(),
+            () -> m_troughSubsystem.spinCommand(1),
             m_troughSubsystem))
         .onFalse(new RunCommand(
             () -> m_troughSubsystem.stop(),
             m_troughSubsystem));
-  }
+   
+    new JoystickButton(m_driverController, 5)
+        .whileTrue(new RunCommand(
+            () -> m_troughSubsystem.spinCommand(-1),
+            m_troughSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_troughSubsystem.stop(),
+            m_troughSubsystem));
+
+        // Algae buttons for roller
+    new JoystickButton(m_driverController, 1)
+        .whileTrue(new RunCommand(
+            () -> m_algaeSubsystem.spinRollerCommand(1),
+            m_algaeSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_algaeSubsystem.stopRoller(),
+            m_algaeSubsystem));
+    
+    new JoystickButton(m_driverController, 2)
+        .whileTrue(new RunCommand(
+            () -> m_algaeSubsystem.spinRollerCommand(-1),
+            m_algaeSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_algaeSubsystem.stopRoller(),
+            m_algaeSubsystem));
+
+    //ALgae arm
+    new JoystickButton(m_driverController, 3)
+        .whileTrue(new RunCommand(
+            () -> m_algaeSubsystem.spinShoulderCommand(0.4),
+            m_algaeSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_algaeSubsystem.stopShoulder(),
+            m_algaeSubsystem));
+    
+    new JoystickButton(m_driverController, 4)
+        .whileTrue(new RunCommand(
+            () -> m_algaeSubsystem.spinShoulderCommand(-1.5),
+            m_algaeSubsystem))
+        .onFalse(new RunCommand(
+            () -> m_algaeSubsystem.stopShoulder(),
+            m_algaeSubsystem));
+}
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

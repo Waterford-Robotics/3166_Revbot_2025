@@ -27,7 +27,7 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  // Create MAXSwerveModules
+  //Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
@@ -90,7 +90,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The pose.
    */
   public Pose2d getPose() {
-    return m_odometry.getPoseMeters();
+    // return m_odometry.getPoseMeters();
+    return new Pose2d();
   }
 
   /**
@@ -102,7 +103,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
-            m_frontLeft.getPosition(),
+            // m_frontLeft.getPosition(),
             m_frontRight.getPosition(),
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()

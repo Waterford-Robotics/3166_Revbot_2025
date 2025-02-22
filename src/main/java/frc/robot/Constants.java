@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Constants.NeoMotorConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -95,6 +96,11 @@ public final class Constants {
     // Constraint for the motion profiled robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
+
+  public static final class OperatorConstants {
+    public static final double k_algaeArmRotationSpeed = 0.2;
+    public static final double k_algaeRollerSpeed = 0.5;
   }
 
   public static final class NeoMotorConstants {

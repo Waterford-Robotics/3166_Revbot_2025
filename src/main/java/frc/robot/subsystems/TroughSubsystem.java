@@ -15,8 +15,8 @@ public class TroughSubsystem extends SubsystemBase
         SmartDashboard.putBoolean("test trough spin button", false);
     }
 
-    public void spinCommand() {
-        troughMotor.set(k_troughSpin);
+    public void spinCommand(int polarity) {
+        troughMotor.set(polarity*k_troughSpin);
         SmartDashboard.putBoolean("test trough spin button", true);
     }
 
