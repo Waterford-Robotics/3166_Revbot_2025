@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.util.List;
 
 /*
@@ -129,6 +131,18 @@ public class RobotContainer {
             () -> m_robotDrive.zeroHeading(),
             m_robotDrive
         ));
+
+    new Trigger(() -> m_driverController.getRawAxis(2) > 0.05)
+    .whileTrue(
+        new RunCommand(
+            () -> m_robotDrive.robotOrientedDrive(m_driverController.getRawAxis(2)),
+            m_robotDrive));
+
+    new Trigger(() -> m_driverController.getRawAxis(3) > 0.05)
+    .whileTrue(
+        new RunCommand(
+            () -> m_robotDrive.robotOrientedDrive(-1*m_driverController.getRawAxis(3)),
+            m_robotDrive));
 }
 
 

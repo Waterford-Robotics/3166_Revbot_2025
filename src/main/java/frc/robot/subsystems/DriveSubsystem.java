@@ -138,6 +138,19 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
+  public void robotOrientedDrive(double xSpeed) {
+    // Convert the commanded speeds into the correct units for the drivetrain
+    double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
+
+    var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
+             new ChassisSpeeds(0,xSpeedDelivered, 0));
+    SwerveDriveKinematics.desaturateWheelSpeeds(
+        swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+    m_frontLeft.setDesiredState(swerveModuleStates[0]);
+    m_frontRight.setDesiredState(swerveModuleStates[1]);
+    m_rearLeft.setDesiredState(swerveModuleStates[2]);
+    m_rearRight.setDesiredState(swerveModuleStates[3]);
+  }
 
   /**
    * Sets the wheels into an X formation to prevent movement.
